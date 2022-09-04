@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+
 
 @Slf4j
 @SpringBootTest
@@ -38,26 +38,32 @@ public class BoardTest {
 
     @Test
     void findAll() {
-        List<BoardResponseDto> result = boardService.findAll();
 
-        if (result != null) {
-            log.info("Success findAll()={}", result.toString());
+    /*    List<BoardResponseDto> list = boardService.findAll(0,100);
+
+        if(list != null) {
+            System.out.println("# Success findAll() : " + list.toString());
         } else {
-            log.info("Fail findAll()");
-        }
+            System.out.println("# Fail findAll() ~");
+        }*/
     }
 
     @Test
-    void findById(Long id) {
-        BoardResponseDto result = boardService.findById(id);
+    void findById() {
+        BoardRequestDto boardRequestDto = new BoardRequestDto();
+        boardRequestDto.setId(1L);
+        boardRequestDto.setTitle("업데이트 제목");
+        boardRequestDto.setContent("업데이트 내용");
+        boardRequestDto.setRegisterId("작성자");
 
-        if (result != null) {
-            log.info("Success findById() = {}", result.toString());
+        BoardResponseDto info = boardService.findById(boardRequestDto.getId());
+
+        if (info != null) {
+            System.out.println("# Success findById() : " + info.toString());
         } else {
-            log.info("Fail findByiD");
+            System.out.println("# Fail findById() ~");
         }
     }
-
     @Test
     void update(Long id) {
         BoardRequestDto boardRequestDto = new BoardRequestDto();
